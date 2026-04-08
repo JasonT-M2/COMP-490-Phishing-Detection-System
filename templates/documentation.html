@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Documentation | Phishing Detection System</title>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Roboto+Mono:wght@300;400;700&display=swap");
+
+      body {
+        margin: 0;
+        background: #0a0a0f;
+        font-family: "Roboto Mono", monospace;
+        color: #f6f6f6;
+        overflow-x: hidden;
+      }
+
+      .noise {
+        pointer-events: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-image: url("https://i.imgur.com/o9bV8Zf.png");
+        opacity: 0.05;
+        z-index: 9999;
+      }
+
+      .scanlines {
+        pointer-events: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: repeating-linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.03),
+          rgba(255, 255, 255, 0.03) 2px,
+          transparent 2px,
+          transparent 4px
+        );
+        z-index: 9998;
+      }
+
+      nav {
+        background: #fcee09;
+        color: #000;
+        padding: 18px 40px;
+        font-family: Orbitron, sans-serif;
+        font-weight: 700;
+        border-bottom: 4px solid cyan;
+        display: flex;
+        justify-content: space-between;
+        letter-spacing: 2px;
+        clip-path: polygon(0 0, 96% 0, 100% 100%, 0 100%);
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 35px;
+        margin: 0;
+      }
+      nav li {
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      nav li:hover {
+        color: #ff006e;
+        text-shadow:
+          0 0 6px #ff006e,
+          0 0 12px #ff006e;
+      }
+
+      h1.glitch {
+        font-family: Orbitron, sans-serif;
+        font-size: 52px;
+        color: #fcee09;
+        text-align: center;
+        margin-top: 100px;
+        font-weight: 700;
+        position: relative;
+      }
+
+      h1.glitch::before,
+      h1.glitch::after {
+        content: "PHISHING DETECTION SYSTEM";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+      }
+
+      h1.glitch::before {
+        color: #00eaff;
+        transform: translate(3px, 0);
+        opacity: 0.6;
+      }
+
+      h1.glitch::after {
+        color: #ff006e;
+        transform: translate(-3px, 0);
+        opacity: 0.6;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: #00eaff;
+        font-size: 18px;
+        margin-top: 10px;
+        letter-spacing: 1px;
+      }
+
+      .box {
+        background: rgba(15, 15, 25, 0.9);
+        width: 650px;
+        margin: 60px auto;
+        padding: 40px;
+        border: 2px solid #fcee09;
+        box-shadow: 0 0 15px #fcee09;
+        border-radius: 0;
+        clip-path: polygon(0 0, 100% 0, 100% 92%, 95% 100%, 0 100%);
+        position: relative;
+      }
+
+      .box::before {
+        content: "";
+        position: absolute;
+        right: -4px;
+        top: 10px;
+        height: 40%;
+        width: 4px;
+        background: #ff006e;
+        box-shadow: 0 0 10px #ff006e;
+      }
+
+      .box h2 {
+        color: #fcee09;
+        font-family: Orbitron;
+      }
+
+      textarea {
+        width: 100%;
+        height: 180px;
+        background: #050505;
+        color: #fcee09;
+        border: 2px solid #00eaff;
+        border-radius: 0;
+        padding: 10px;
+        font-size: 14px;
+        transition: 0.2s;
+        outline: none;
+      }
+
+      textarea:focus {
+        box-shadow: 0 0 12px #00eaff;
+      }
+
+      button {
+        margin-top: 15px;
+        width: 100%;
+        padding: 14px;
+        background: #ff006e;
+        border: none;
+        color: white;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        font-family: Orbitron;
+        letter-spacing: 2px;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        background: #fcee09;
+        color: #000;
+        box-shadow: 0 0 12px #fcee09;
+      }
+
+      .result {
+        margin-top: 25px;
+        background: #111;
+        padding: 15px;
+        border-left: 4px solid #fcee09;
+        color: #fcee09;
+        box-shadow: 0 0 12px #fcee09 inset;
+        font-size: 15px;
+      }
+      .doc-section {
+        margin-bottom: 50px;
+      }
+
+      .image-placeholder {
+        width: 100%;
+        height: 220px;
+        border: 2px dashed #00eaff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #00eaff;
+        margin-bottom: 20px;
+        background: #050505;
+        font-size: 14px;
+        letter-spacing: 1px;
+      }
+
+      .explanation {
+        background: #111;
+        padding: 18px;
+        border-left: 4px solid #ff006e;
+        color: #f6f6f6;
+        box-shadow: 0 0 10px #ff006e inset;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="noise"></div>
+    <div class="scanlines"></div>
+
+    <nav>
+      <div>PHISHING DETECTION SYSTEM by Coated Goders</div>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/docs">Docs</a></li>
+        <li><a href="/security-tips">Security Tips</a></li>
+      </ul>
+    </nav>
+
+    <h1 class="glitch">PHISHING DETECTION SYSTEM</h1>
+    <p class="subtitle">System Documentation</p>
+
+    <div class="box">
+      <h2>System Documentation</h2>
+
+      <!-- SECTION 1 -->
+
+      <div class="doc-section">
+        <div class="image-placeholder">
+          <img
+            src="flashpython.png"
+            alt="Flask Python Png"
+            class="image-placeholder"
+          />
+        </div>
+
+        <div class="explanation">
+          <strong>System Overview</strong><br /><br />
+          <p>
+            We are using flask python API to store and combine out python and
+            html elements with our phishing detection system
+          </p>
+          <p>
+            Using a Flask API to serve a machine learning model offers several
+            key advantages. First, it separates concerns by keeping the model
+            logic—such as training, feature processing, and
+            predictions—independent from the frontend, allowing developers to
+            update either without affecting the other. It also makes the model
+            accessible to any client capable of sending HTTP requests, including
+            web apps, mobile apps, or other Python programs, effectively turning
+            the model into a service. This approach improves scalability, as the
+            API can handle multiple users, be deployed in the cloud, and
+            load-balanced to manage high traffic. Security is enhanced because
+            the raw model and its code remain on the server, while the API can
+            validate inputs, rate-limit requests, and control outputs. A Flask
+            API adds flexibility by allowing multiple model versions to be
+            served simultaneously, enabling experimentation and A/B testing
+            without changing the frontend. Additionally, it accelerates
+            prototyping since the frontend can quickly send requests and receive
+            predictions in real time. Finally, it maximizes reusability, as the
+            same API can serve multiple applications, including dashboards,
+            mobile apps, or browser extensions, making the system modular,
+            maintainable, and efficient.
+          </p>
+          <p>
+            <strong>Key Features</strong><br />
+            <ul>
+            <li>Application programming interface using the Flask web Framework</li>
+            <li>Lightweight and flexible framework for python</li>
+            <li>Handles HTTP request and response</li>
+            <li>works with scikit-learn, TensorFlow</li>
+            <li>built-in server for testing</li>
+            <li>Minimal Setup and easy to understand</li>
+            <li>Flexible: Can integrate with databases, authentication, ML models</li>
+            <li>Lots of extensions</li>
+            <li>We can connect databases using SQL</li>
+            </ul>
+          </p>
+        </div>
+      </div>
+
+      <!-- SECTION 2 -->
+
+      <div class="doc-section">
+        <div class="image-placeholder">
+          <img
+            src="picklepython.png"
+            alt="picklepython Python Png"
+            class="image-placeholder"
+          />
+        </div>
+
+        <div class="explanation">
+          <p>
+            In Python, Pickle is a tool that lets you save things like a trained
+            machine learning model to a file and then load it back later without
+            having to retrain it. For a phishing detection system, this is
+            really useful because training the model to recognize phishing
+            websites can take a long time. Once you train the model, you can use
+            Pickle to “freeze” it and save it. Later, when someone uses your web
+            app to check a URL, your Flask API can quickly load the saved model
+            from the file and make predictions instantly. This way, your model
+            is easy to reuse, and your system can give results fast without
+            needing to start the training process every time.
+          </p>
+          <p>
+            <strong>Key Features</strong><br />
+            <ul>
+            <li>Supports complex objects: Can handle custom classes, functions and nested data structures</li>
+            <li>Persisten Storage: Allows savingg objexts to files for later use</li>
+            <li>Data Transfer: Enables sending Python objets over a network or between processes</li>
+            <li>Serializes Python Objects: Converts Python objects (lists, dictionaries, classes, etc.) into a byte stream.</li>
+            <li>Deserializes Python objects: Reconstructs Python Objects from a byte stream back into memory</li>
+            </ul>
+          </p>
+          <p>
+            <strong>Why it is important</strong><br />
+            Consistenty in preprocessing <br /> 
+            -Ensures the TF-IDF (Term Frequency-Inverse Document Frequenct) vectorizer used in training is exactly the same when we load our model for use.<br/>
+            Protability <br />
+            -Pickled objects can be loaded on another machine, or deployed in a web app or API
+            Supports complex Python objects <br />
+            -Pickle saves the raw data the email data is turned into data the model understands
+          </p>
+        </div>
+      </div>
+
+      <!-- SECTION 3 -->
+
+      <div class="doc-section">
+        <div class="image-placeholder">
+          <img
+            src="github.png"
+            alt="github Png"
+            class="image-placeholder"
+          /></div>
+
+        <div class="explanation">
+          <strong>Key Features</strong><br />
+          <ul>
+          <li>Version control – keeps track of all changes to code over time.</li>
+          <li>Collaboration – allows multiple developers to work on the same project simultaneously.</li>
+          <li>Backup – stores code in the cloud so it’s safe from local hardware failures.</li>
+          <li>Code review – makes it easy to review, comment on, and approve changes.</li>
+          <li>Issue tracking – helps organize bugs, tasks, and feature requests.</li>
+          <li>Continuous integration – integrates with tools to automatically test and deploy code.</li>
+          <li>Portfolio & visibility – showcases projects publicly for employers or collaborators.</li>
+          <li>Open-source contribution – allows developers to contribute to other projects.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SECTION 4 -->
+
+      <div class="doc-section">
+        <div class="image-placeholder">
+          <img
+            src="htmlcsslogo.png"
+            alt="html and CSS logo Png"
+            class="image-placeholder"
+          /></div>
+
+        <div class="explanation">
+          <strong>Why</strong><br /><br />
+          <p>
+          Using HTML and CSS with Flask is beneficial because HTML provides the structure of your web pages, while CSS controls their appearance and styling. This allows you to create a user-friendly and visually appealing interface for your Flask application, such as a phishing detection dashboard. By combining Flask with HTML and CSS, you can easily serve dynamic content from your Python backend while keeping the frontend organized and attractive.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Security Tips | Phishing Detection System</title>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Roboto+Mono:wght@300;400;700&display=swap");
+
+      body {
+        margin: 0;
+        background: #0a0a0f;
+        font-family: "Roboto Mono", monospace;
+        color: #f6f6f6;
+        overflow-x: hidden;
+      }
+
+      .noise {
+        pointer-events: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-image: url("https://i.imgur.com/o9bV8Zf.png");
+        opacity: 0.05;
+        z-index: 9999;
+      }
+
+      .scanlines {
+        pointer-events: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: repeating-linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.03),
+          rgba(255, 255, 255, 0.03) 2px,
+          transparent 2px,
+          transparent 4px
+        );
+        z-index: 9998;
+      }
+
+      nav {
+        background: #fcee09;
+        color: #000;
+        padding: 18px 40px;
+        font-family: Orbitron, sans-serif;
+        font-weight: 700;
+        border-bottom: 4px solid cyan;
+        display: flex;
+        justify-content: space-between;
+        letter-spacing: 2px;
+        clip-path: polygon(0 0, 96% 0, 100% 100%, 0 100%);
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 35px;
+        margin: 0;
+      }
+      nav li {
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      nav li:hover {
+        color: #ff006e;
+        text-shadow:
+          0 0 6px #ff006e,
+          0 0 12px #ff006e;
+      }
+
+      h1.glitch {
+        font-family: Orbitron, sans-serif;
+        font-size: 52px;
+        color: #fcee09;
+        text-align: center;
+        margin-top: 100px;
+        font-weight: 700;
+        position: relative;
+      }
+
+      h1.glitch::before,
+      h1.glitch::after {
+        content: "PHISHING DETECTION SYSTEM";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+      }
+
+      h1.glitch::before {
+        color: #00eaff;
+        transform: translate(3px, 0);
+        opacity: 0.6;
+      }
+
+      h1.glitch::after {
+        color: #ff006e;
+        transform: translate(-3px, 0);
+        opacity: 0.6;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: #00eaff;
+        font-size: 18px;
+        margin-top: 10px;
+        letter-spacing: 1px;
+      }
+
+      .box {
+        background: rgba(15, 15, 25, 0.9);
+        width: 650px;
+        margin: 60px auto;
+        padding: 40px;
+        border: 2px solid #fcee09;
+        box-shadow: 0 0 15px #fcee09;
+        border-radius: 0;
+        clip-path: polygon(0 0, 100% 0, 100% 92%, 95% 100%, 0 100%);
+        position: relative;
+      }
+
+      .box::before {
+        content: "";
+        position: absolute;
+        right: -4px;
+        top: 10px;
+        height: 40%;
+        width: 4px;
+        background: #ff006e;
+        box-shadow: 0 0 10px #ff006e;
+      }
+
+      .box h2 {
+        color: #fcee09;
+        font-family: Orbitron;
+      }
+
+      textarea {
+        width: 100%;
+        height: 180px;
+        background: #050505;
+        color: #fcee09;
+        border: 2px solid #00eaff;
+        border-radius: 0;
+        padding: 10px;
+        font-size: 14px;
+        transition: 0.2s;
+        outline: none;
+      }
+
+      textarea:focus {
+        box-shadow: 0 0 12px #00eaff;
+      }
+
+      button {
+        margin-top: 15px;
+        width: 100%;
+        padding: 14px;
+        background: #ff006e;
+        border: none;
+        color: white;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        font-family: Orbitron;
+        letter-spacing: 2px;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        background: #fcee09;
+        color: #000;
+        box-shadow: 0 0 12px #fcee09;
+      }
+
+      .result {
+        margin-top: 25px;
+        background: #111;
+        padding: 15px;
+        border-left: 4px solid #fcee09;
+        color: #fcee09;
+        box-shadow: 0 0 12px #fcee09 inset;
+        font-size: 15px;
+      }
+      .doc-section {
+        margin-bottom: 50px;
+      }
+      .tip-section {
+        margin-bottom: 30px;
+      }
+
+      .tip-title {
+        color: #00eaff;
+        font-family: Orbitron;
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      .tip-box {
+        background: #111;
+        padding: 15px;
+        border-left: 4px solid #00eaff;
+        box-shadow: 0 0 10px #00eaff inset;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="noise"></div>
+    <div class="scanlines"></div>
+
+    <nav>
+      <div>PHISHING DETECTION SYSTEM by Coated Goders</div>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/docs">Docs</a></li>
+        <li><a href="/security-tips">Security Tips</a></li>
+      </ul>
+    </nav>
+
+    <h1 class="glitch">PHISHING DETECTION SYSTEM</h1>
+    <p class="subtitle">Email Security Tips & Awareness</p>
+
+    <div class="box">
+      <h2>How to Protect Yourself from Phishing</h2>
+
+      <div class="tip-section">
+        <div class="tip-title">1. Check the Sender's Email Address</div>
+        <div class="tip-box">
+          Phishing emails often use addresses that look similar to legitimate
+          companies. Always verify the domain name carefully. For example,
+          attackers may replace letters with similar characters or add extra
+          words to trick users.
+        </div>
+      </div>
+
+      <div class="tip-section">
+        <div class="tip-title">2. Be Careful with Suspicious Links</div>
+        <div class="tip-box">
+          Never click links from unknown senders. Hover over links before
+          clicking to see the real destination. If the URL looks strange or does
+          not match the company's official website, it may be a phishing
+          attempt.
+        </div>
+      </div>
+
+      <div class="tip-section">
+        <div class="tip-title">3. Watch for Urgent or Threatening Language</div>
+        <div class="tip-box">
+          Phishing messages often create urgency such as “Your account will be
+          suspended” or “Immediate action required.” These messages try to
+          pressure users into making quick decisions without thinking.
+        </div>
+      </div>
+
+      <div class="tip-section">
+        <div class="tip-title">4. Avoid Sharing Sensitive Information</div>
+        <div class="tip-box">
+          Legitimate organizations will never ask for passwords, credit card
+          numbers, or personal information through email. If you receive such
+          requests, it is likely a phishing attempt.
+        </div>
+      </div>
+
+      <div class="tip-section">
+        <div class="tip-title">5. Verify Attachments Before Opening</div>
+        <div class="tip-box">
+          Attachments in phishing emails may contain malware or malicious
+          scripts. Only open attachments from trusted senders and always scan
+          files with antivirus software before opening them.
+        </div>
+      </div>
+
+      <div class="result">
+        <strong>Security Reminder:</strong> When in doubt, do not click any
+        links or download attachments. Report suspicious emails to your
+        organization's security team or email provider.
+      </div>
+    </div>
+  </body>
+</html>
